@@ -6,15 +6,16 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Http\JsonResponse;
 use Dcat\Admin\Layout\Content;
 use Dcat\Admin\OperationLog\Models\OperationLog;
+use Dcat\Admin\OperationLog\OperationLogServiceProvider;
 use Dcat\Admin\Support\Helper;
 use Illuminate\Support\Arr;
 
-class OperationLogController
+class LogController
 {
     public function index(Content $content)
     {
         return $content
-            ->title('opration-log')
+            ->title(OperationLogServiceProvider::trans('log.title'))
             ->description(trans('admin.list'))
             ->body($this->grid());
     }
@@ -62,7 +63,7 @@ class OperationLogController
                     return;
                 }
 
-                return '<pre class="dump">'.json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).'</pre>';
+                return '<pre class="dump" style="max-width: 500px">'.json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).'</pre>';
             });
 
             $grid->column('created_at', trans('admin.created_at'));

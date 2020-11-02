@@ -13,14 +13,12 @@ class OperationLogServiceProvider extends ServiceProvider
         ],
     ];
 
-    public function register()
-    {
-    }
-
-    public function init()
-    {
-        parent::init();
-    }
+    protected $menu = [
+        [
+            'title' => 'Operation Log',
+            'uri'   => 'auth/operation-logs',
+        ],
+    ];
 
     public function settingForm()
     {

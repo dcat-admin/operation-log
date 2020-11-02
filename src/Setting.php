@@ -3,17 +3,29 @@
 namespace Dcat\Admin\OperationLog;
 
 use Dcat\Admin\Extend\Setting as Form;
+use Dcat\Admin\OperationLog\Models\OperationLog;
+use Dcat\Admin\Support\Helper;
 
 class Setting extends Form
 {
     public function title()
     {
-        return '操作日志';
+        return $this->trans('log.title');
+    }
+
+    protected function formatInput(array $input)
+    {
+        $input['except'] = Helper::array($input['except']);
+        $input['allowed_methods'] = Helper::array($input['allowed_methods']);
+
+        return $input;
     }
 
     public function form()
     {
-        $this->text('key1')->required();
-        $this->text('key2')->required();
+        $this->tags('except');
+        $this->multipleSelect('allowed_methods')
+            ->options(array_combine(OperationLog::$methods, OperationLog::$methods));
+        $this->tags('secret_fields');
     }
 }
