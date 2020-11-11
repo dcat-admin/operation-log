@@ -99,15 +99,11 @@ class LogController
     {
         $ids = explode(',', $id);
 
-        if (OperationLog::destroy(array_filter($ids))) {
-            $status = true;
-        } else {
-            $status = false;
-        }
+        OperationLog::destroy(array_filter($ids));
 
         return JsonResponse::make()
-            ->status($status)
-            ->successIf($status, trans('admin.delete_succeeded'))
-            ->errorIf($status, trans('admin.delete_failed'));
+            ->success(trans('admin.delete_succeeded'))
+            ->refresh()
+            ->send();
     }
 }
