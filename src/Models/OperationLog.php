@@ -27,7 +27,7 @@ class OperationLog extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->connection = config('database.connection') ?: config('database.default');
+        $this->connection = config('admin.database.connection') ?: config('database.default');
 
         parent::__construct($attributes);
     }
